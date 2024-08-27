@@ -1,0 +1,20 @@
+ORG 1000H
+C DB "z"
+RES DB ?
+  ORG 2000H
+  MOV AL, C
+  CMP CL, 90
+  MOV BX, OFFSET RES
+  CMP CL, AL
+  JS ES_MINUSCULA
+  JNS ES_MINUSCULA
+  ES_MINUSCULA: MOV BYTE PTR [BX], 00
+  ES_MAYUSCULA: MOV BYTE PTR [BX], 0FFH
+  JMP FIN
+  FIN: HLT
+HLT
+END
+; Escribir un programa que determine si un carácter (un string de longitud 1) es una
+;letra mayúscula. El carácter está almacenado en la variable C, y el resultado se guarda en la variable
+;RES de 8 bits. Si C es mayúscula, debe almacenarse el valor 0FFh en RES; de lo contrario, debe
+;almacenarse 0
