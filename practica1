@@ -1,0 +1,15 @@
+ORG 1000H ; ejercicio 1
+MENSAJE DB "aguante boca"
+CANT DB ?
+  ORG 2000H
+  MOV BX, OFFSET MENSAJE 
+  MOV DL, 0; CONTADOR DE a
+LOOP: MOV AL, [BX]
+  CMP AL, 97; COMPARA al con 97
+  JNZ NO_ES_UNA_A
+  INC DL; es una a incrementa dl
+  NO_ES_UNA_A: INC BX ; no es una a incrementa bx
+  CMP BX, OFFSET CANT; me fijo si llegue al final
+  JNZ LOOP; si no llego sigo iterando
+HLT
+END
