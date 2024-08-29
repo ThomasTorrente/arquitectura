@@ -1,0 +1,38 @@
+org 1000h
+PASSWORD DB ?
+         DB ?
+         DB ?
+         DB ?
+SERVER_PAS DB "1234"
+CORRECT DB "ACCESO PERMITIDO"
+INCORRECT DB "ACCESO DENEGADO"
+DIGITS DB 4
+TRYS DB 5
+ORG 2000H
+mov bx, offset password
+mov dl, digits
+ PASSWORD_INPUT:
+ int 6
+ inc bx
+ dec dl
+ jnz PASSWORD_INPUT
+ mov dh, 4
+
+ VERIFICATION:
+ mov bx, offset password
+ mov ch, [bx]
+ mov bx, offset SERVER_PAS
+ mov cl, [bx]
+ cmp ch, cl
+
+ mov ah, TRYS 
+ dec ah
+ jnz DENEGATE_ACCESS
+ jmp PASSWORD_INPUT
+ 
+ DENEGATE_ACCESS:
+ mov bx, offset INCORRECT 
+ MOV AL, 9
+ INT 3
+ HLT
+END
