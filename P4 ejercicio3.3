@@ -1,0 +1,12 @@
+ORG 1000H 
+c db "A"
+org 3000h
+A_MAYUS:
+mov al, c
+mov al, 32
+ret
+org 2000h
+call A_MAYUS
+mov c, al
+HLT
+END
