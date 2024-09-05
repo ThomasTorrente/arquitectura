@@ -1,0 +1,22 @@
+ORG 1000H ; ejercicio 1
+MENSAJE DB "aguante boca"
+C DB 61h
+  org 3000h
+  contar_car:
+  mov bx, offset mensaje
+  mov al, offset c - offset mensaje
+  mov ah, c
+  mov cl, 0
+loop: cmp ah, [bx]
+      jz suma
+      jmp avanzar
+      suma: inc cl
+      avanzar: inc bx
+      dec al
+      jz fin
+      jmp loop
+      fin: ret
+  ORG 2000H
+  call contar_car
+HLT
+END
