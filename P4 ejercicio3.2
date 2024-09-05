@@ -1,0 +1,18 @@
+ORG 1000H 
+c db "D"
+org 3000h
+MAYUS: 
+mov al, c
+mov cl, 5bh
+cmp cl, al 
+js no_es_mayus
+jmp es_mayus
+es_mayus:mov ah, 00h
+jmp fin
+no_es_mayus: mov ah, 0ffh
+fin:ret
+org 2000h 
+call MAYUS
+
+HLT
+END
