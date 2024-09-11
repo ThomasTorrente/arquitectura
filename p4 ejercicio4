@@ -1,0 +1,30 @@
+ORG 1000H 
+mensaje db "Aguante Argentina"
+fin db ?
+org 3000h
+CONVERTIR:
+mov bx, offset mensaje
+mov al, offset fin - offset mensaje
+loop:
+cmp byte ptr [bx], 64
+jns posible_mayus
+jmp avanzar
+posible_mayus: 
+cmp byte ptr [bx],91
+js es_mayus
+jmp avanzar
+es_mayus:
+add byte ptr [bx], 32
+avanzar:
+inc bx
+dec al
+jz finalizar
+jmp loop
+finalizar: ret
+org 2000h
+call CONVERTIR 
+mov bx, 1000h
+mov al, 17
+int 7
+HLT
+END
