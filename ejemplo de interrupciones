@@ -1,0 +1,24 @@
+ORG 1000H
+
+ORG 3000H
+CONTAR: INC DL; incrementa dl cada vez que interrumpe f10
+; aviso al pic que termina 
+MOV AL, 20H
+OUT 20H,AL; eoi 20h
+; volvemos con el iret
+IRET
+ORG 2000H
+;selecciono 10 para f10
+MOV AX, CONTAR; asigna la direcction de contar(3000h) a ax
+MOV BX, 40; 10*4=40
+MOV [BX], AX; 40 = 3000h
+; configuro el PIC
+CLI
+MOV AL, 11111110B; IMR =11111110B 
+OUT 21H, AL
+MOV AL, 10
+OUT 24H, AL; int 0(f10) = 10 id
+STI
+loop: jmp loop
+INT 0
+END
